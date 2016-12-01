@@ -38,6 +38,9 @@ public class GeneticAlgorithm
 	}
 
 
+	public 
+
+
 	public void currentState()
 	{
 		System.out.println("Number of individuals: " + populationSize);
