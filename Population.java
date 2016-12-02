@@ -29,7 +29,7 @@ public class Population
 	}
 
 
-	public void initializeIndividuals()
+	public void initialize()
 	{
 		for(Individual individual : population)
 		{
@@ -89,34 +89,6 @@ public class Population
 	}
 
 
-	public Individual[] crossover(Individual parent1, Individual parent2)
-	{
-		int crossoverPoint = rand.nextInt(5);
-
-        byte mask = 0;
-
-        byte bit = 1;
-        
-        for(int i=0; i<crossoverPoint; i++)
-        {
-			mask |= bit;
-			bit = (byte) (bit << 1);
-        }
-
-		byte gene1 = (byte) ((parent1.getGene() & mask) + (parent2.getGene() & ~mask));
-		byte gene2 = (byte) ((parent1.getGene() & ~mask) + (parent2.getGene() & mask));
-
-		Individual child1 = new Individual(gene1);
-		Individual child2 = new Individual(gene2);
-
-		Individual[] children = new Individual[2];
-		children[0] = child1;
-		children[1] = child2;
-
-		return children;
-	}
-
-
 	public void setIndividual(int idx, Individual individual)
 	{
 		population[idx] = individual;
@@ -131,7 +103,7 @@ public class Population
 		{
 			Individual parent1 = select();
 			Individual parent2 = select();
-			Individual[] children = crossover(parent1, parent2);
+			Individual[] children = Individual.crossover(parent1, parent2, rand);
 
 			if(rand.nextDouble() < mutationRate)
 			{

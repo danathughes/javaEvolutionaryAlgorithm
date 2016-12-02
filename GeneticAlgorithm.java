@@ -15,7 +15,7 @@ public class GeneticAlgorithm
 	public GeneticAlgorithm(int populationSize, double crossoverRate, double mutationRate)
 	{
 		population = new Population(populationSize, crossoverRate, mutationRate);
-		population.initializeIndividuals();
+		population.initialize();
 	}
 
 
