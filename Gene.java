@@ -7,7 +7,7 @@
 */
 
 
-public abstract class Gene
+public class Gene
 {
 	public Gene()
 	{

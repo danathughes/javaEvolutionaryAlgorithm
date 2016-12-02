@@ -11,27 +11,29 @@ import java.util.Random;
 public class Population
 {
 	private int populationSize = 0;
-	private byte[] population;
+	private Individual[] population;
 	private double crossoverRate, mutationRate;
 	Random rand;
 
-	public Population(int populationSize, Random rand, double crossoverRate, double mutationRate)
+	public Population(int populationSize, double crossoverRate, double mutationRate)
 	{
 		this.populationSize = populationSize;
-        population = new byte[populationSize];
+        population = new Individual[populationSize];
 
-		this.rand = rand;
+		for(int i=0; i<populationSize; i++)
+		{
+			population[i] = new Individual();
+		}
+
+		rand = new Random();
 	}
 
 
 	public void initializeIndividuals()
 	{
-		rand.nextBytes(population);
-		byte mask = 31;
-
-		for(int i=0; i<populationSize; i++)
+		for(Individual individual : population)
 		{
-			population[i] = (byte)(population[i] & mask);
+			individual.initialize(rand);
 		}
 	}
 
@@ -41,10 +43,10 @@ public class Population
 		double total = 0.0;
 
 		System.out.print("    Genotypes: ");
-		for(int i=0; i<populationSize; i++)
+		for(Individual individual : population)
 		{ 
-			System.out.print(population[i] + "   ");
-			total += population[i];
+			System.out.print(individual.getGene() + "   ");
+			total += individual.getGene();
 		}
 		System.out.println();
 
@@ -52,15 +54,15 @@ public class Population
 	}
 
 
-	public byte select()
+	public Individual select()
 	{
 		double[] probs = new double[populationSize];
 		double total = 0.0;
 
 		for(int i=0; i<populationSize; i++)
 		{
-			probs[i] = (float) population[i];
-			total += (float) population[i];
+			probs[i] = (float) population[i].getGene();
+			total += (float) population[i].getGene();
 		}
 
 		for(int i=0; i<populationSize; i++)
@@ -87,7 +89,7 @@ public class Population
 	}
 
 
-	public byte[] crossover(byte parent1, byte parent2)
+	public Individual[] crossover(Individual parent1, Individual parent2)
 	{
 		int crossoverPoint = rand.nextInt(5);
 
@@ -101,10 +103,13 @@ public class Population
 			bit = (byte) (bit << 1);
         }
 
-		byte child1 = (byte) ((parent1 & mask) + (parent2 & ~mask));
-		byte child2 = (byte) ((parent1 & ~mask) + (parent2 & mask));
+		byte gene1 = (byte) ((parent1.getGene() & mask) + (parent2.getGene() & ~mask));
+		byte gene2 = (byte) ((parent1.getGene() & ~mask) + (parent2.getGene() & mask));
 
-		byte[] children = new byte[2];
+		Individual child1 = new Individual(gene1);
+		Individual child2 = new Individual(gene2);
+
+		Individual[] children = new Individual[2];
 		children[0] = child1;
 		children[1] = child2;
 
@@ -112,50 +117,34 @@ public class Population
 	}
 
 
-
-	public byte mutate(byte parent)
-	{
-		int mutationPoint = rand.nextInt(5);
-
-		byte bit = (byte)(1 << mutationPoint);
-
-		return (byte) (parent ^ bit);
-	}
-
-
-	public void setIndividual(int idx, byte individual)
+	public void setIndividual(int idx, Individual individual)
 	{
 		population[idx] = individual;
 	}
 
 
-	public Population makeNewPopulation()
+	public Population breed()
 	{
-		Population newPopulation = new Population(populationSize, rand, crossoverRate, mutationRate);
+		Population newPopulation = new Population(populationSize, crossoverRate, mutationRate);
 
 		for(int i=0; i<populationSize/2; i++)
 		{
-			byte parent1 = select();
-			byte parent2 = select();
-			byte[] children = crossover(parent1, parent2);
-
-			byte child1 = children[0];
-			byte child2 = children[1];
+			Individual parent1 = select();
+			Individual parent2 = select();
+			Individual[] children = crossover(parent1, parent2);
 
 			if(rand.nextDouble() < mutationRate)
 			{
-				child1 = mutate(child1);
+				children[0].mutate(rand);
 			}
-
 			if(rand.nextDouble() < mutationRate)
 			{
-				child2 = mutate(child2);
+				children[1].mutate(rand);
 			}
 
-			newPopulation.setIndividual(2*i, child1);
-			newPopulation.setIndividual(2*i+1, child2);
+			newPopulation.setIndividual(2*i, children[0]);
+			newPopulation.setIndividual(2*i+1, children[1]);
 		}
-
 
 		return newPopulation;
 	}

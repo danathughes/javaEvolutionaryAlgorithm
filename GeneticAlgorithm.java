@@ -6,21 +6,15 @@
 * @since	2016-11-30
 */
 
-import java.util.Random;
-
 public class GeneticAlgorithm
 {
     private int iterationNum = 0;
 
 	private Population population;
 
-	private Random rand;
-
 	public GeneticAlgorithm(int populationSize, double crossoverRate, double mutationRate)
 	{
-		rand = new Random();
-
-		population = new Population(populationSize, rand, crossoverRate, mutationRate);
+		population = new Population(populationSize, crossoverRate, mutationRate);
 		population.initializeIndividuals();
 	}
 
@@ -37,7 +31,7 @@ public class GeneticAlgorithm
 	public void step()
 	{
 		iterationNum++;
-		population = population.makeNewPopulation();
+		population = population.breed();
 	}
 
 
