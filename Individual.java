@@ -12,11 +12,11 @@ public class Individual
 {
 	private static Random rand = new Random();
 
-	private Gene value;
+	private Gene gene;
 
 	public static Individual[] crossover(Individual parent1, Individual parent2, double crossoverRate)
 	{
-		byte[] genes = Gene.crossover(parent1.getGene(), parent2.getGene(), crossoverRate);
+		Gene[] genes = Gene.crossover(parent1.getGene(), parent2.getGene(), crossoverRate);
 
 		Individual child1 = new Individual(genes[0]);
 		Individual child2 = new Individual(genes[1]);
@@ -31,25 +31,37 @@ public class Individual
 
 	public Individual()
 	{
-		value = new Gene((byte) 0);
+		gene = new Gene();
 	}
 
 
 	public Individual(byte val)
 	{
-		value = new Gene(val);
+		gene = new Gene(val);
+	}
+
+
+	public Individual(Gene gene)
+	{
+		this.gene = gene;
 	}
 
 
 	public void initialize()
 	{
-		value.setValue((byte) (rand.nextInt() & 31));
+		gene.randomize();
 	}
 
 
-	public byte getGene()
+	public Gene getGene()
 	{
-		return value.getValue();
+		return gene;
+	}
+
+
+	public double getFitness()
+	{
+		return (double) gene.getValue();
 	}
 
 
@@ -57,7 +69,7 @@ public class Individual
 	{
 		if(rand.nextDouble() < mutationRate)
 		{
-			value.mutate(mutationRate);
+			gene.mutate(mutationRate);
 		}
 	}
 

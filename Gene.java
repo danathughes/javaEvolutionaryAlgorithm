@@ -13,7 +13,7 @@ public class Gene
 
 	private static Random rand = new Random();
 
-	public static byte[] crossover(byte parentGene1, byte parentGene2, double crossoverRate)
+	public static Gene[] crossover(Gene parentGene1, Gene parentGene2, double crossoverRate)
 	{
 		int crossoverPoint = rand.nextInt(5);
 
@@ -26,12 +26,12 @@ public class Gene
 			bit = (byte) (bit << 1);
         }
 
-		byte gene1 = (byte) ((parentGene1 & mask) + (parentGene1 & ~mask));
-		byte gene2 = (byte) ((parentGene2 & ~mask) + (parentGene2 & mask));
+		byte gene1 = (byte) ((parentGene1.getValue() & mask) + (parentGene1.getValue() & ~mask));
+		byte gene2 = (byte) ((parentGene2.getValue() & ~mask) + (parentGene2.getValue() & mask));
 
-		byte[] genes = new byte[2];
-		genes[0] = gene1;
-		genes[1] = gene2;
+		Gene[] genes = new Gene[2];
+		genes[0] = new Gene(gene1);
+		genes[1] = new Gene(gene2);
 
 		return genes;
 	}
@@ -39,11 +39,20 @@ public class Gene
 
 	private byte value = 0;
 	
+	public Gene()
+	{
+	}
+
 	public Gene(byte value)
 	{
 		this.value = value;
 	}
 
+
+	public void randomize()
+	{
+		this.value = (byte) (rand.nextInt() & 31);
+	}
 
 	public void setValue(byte val)
 	{

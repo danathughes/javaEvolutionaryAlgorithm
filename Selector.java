@@ -24,8 +24,8 @@ public class Selector
 
 		for(int i=0; i<population.size(); i++)
 		{
-			probs[i] = (float) population.getIndividual(i).getGene();
-			total += (float) population.getIndividual(i).getGene();
+			probs[i] = (float) population.getIndividual(i).getFitness();
+			total += (float) population.getIndividual(i).getFitness();
 		}
 
 		for(int i=0; i<population.size(); i++)
