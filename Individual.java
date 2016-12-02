@@ -53,7 +53,7 @@ public class Individual
 	}
 
 
-	public double getFitness()
+	public double fitness()
 	{
 		return (double) gene.getValue();
 	}

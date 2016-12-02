@@ -46,8 +46,8 @@ public class Population
 		System.out.print("    Genotypes: ");
 		for(Individual individual : population)
 		{ 
-			System.out.print(individual.getFitness() + "   ");
-			total += individual.getFitness();
+			System.out.print(individual.fitness() + "   ");
+			total += individual.fitness();
 		}
 		System.out.println();
 
