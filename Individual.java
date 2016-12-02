@@ -41,8 +41,6 @@ public class Individual
 	}
 
 
-
-
 	public Individual()
 	{
 		value = 0;
