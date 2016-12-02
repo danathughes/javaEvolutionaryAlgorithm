@@ -12,6 +12,7 @@ public class Population
 {
 	private int populationSize = 0;
 	private Individual[] population;
+	private Selector selector;
 	Random rand;
 
 	public Population(int populationSize)
@@ -25,6 +26,9 @@ public class Population
 		}
 
 		rand = new Random();
+
+		selector = new Selector(rand);
+
 	}
 
 
@@ -53,35 +57,6 @@ public class Population
 	}
 
 
-	public Individual select()
-	{
-		double[] probs = new double[populationSize];
-		double total = 0.0;
-
-		for(int i=0; i<populationSize; i++)
-		{
-			probs[i] = (float) population[i].getGene();
-			total += (float) population[i].getGene();
-		}
-
-		for(int i=0; i<populationSize; i++)
-		{
-			probs[i] /= total;
-		}
-
-		double p = rand.nextDouble();
-		int idx = 0;
-
-		while(p >= probs[idx])
-		{
-			p -= probs[idx];
-			idx += 1;
-		}
-		
-		return population[idx];
-	}
-
-
 	public int size()
 	{
 		return populationSize;
@@ -94,23 +69,29 @@ public class Population
 	}
 
 
+	public Individual getIndividual(int idx)
+	{
+		return population[idx];
+	}
+
+
 	public Population breed(double crossoverRate, double mutationRate)
 	{
 		Population newPopulation = new Population(populationSize);
 
 		for(int i=0; i<populationSize/2; i++)
 		{
-			Individual parent1 = select();
-			Individual parent2 = select();
+			Individual parent1 = selector.select(this);
+			Individual parent2 = selector.select(this);
 			Individual[] children = Individual.crossover(parent1, parent2, rand, crossoverRate);
 
 			if(rand.nextDouble() < mutationRate)
 			{
-				children[0].mutate(rand);
+				children[0].mutate(rand, mutationRate);
 			}
 			if(rand.nextDouble() < mutationRate)
 			{
-				children[1].mutate(rand);
+				children[1].mutate(rand, mutationRate);
 			}
 
 			newPopulation.setIndividual(2*i, children[0]);

@@ -65,7 +65,7 @@ public class Individual
 	}
 
 
-	public void mutate(Random rand)
+	public void mutate(Random rand, double mutationRate)
 	{
 		int mutationPoint = rand.nextInt(5);
 
