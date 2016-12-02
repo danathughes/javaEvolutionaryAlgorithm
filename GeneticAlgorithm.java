@@ -12,9 +12,14 @@ public class GeneticAlgorithm
 
 	private Population population;
 
+	double crossoverRate, mutationRate;
+
 	public GeneticAlgorithm(int populationSize, double crossoverRate, double mutationRate)
 	{
-		population = new Population(populationSize, crossoverRate, mutationRate);
+		this.crossoverRate = crossoverRate;
+		this.mutationRate = mutationRate;
+
+		population = new Population(populationSize);
 		population.initialize();
 	}
 
@@ -31,7 +36,7 @@ public class GeneticAlgorithm
 	public void step()
 	{
 		iterationNum++;
-		population = population.breed();
+		population = population.breed(crossoverRate, mutationRate);
 	}
 
 

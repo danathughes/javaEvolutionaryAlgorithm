@@ -12,10 +12,9 @@ public class Population
 {
 	private int populationSize = 0;
 	private Individual[] population;
-	private double crossoverRate, mutationRate;
 	Random rand;
 
-	public Population(int populationSize, double crossoverRate, double mutationRate)
+	public Population(int populationSize)
 	{
 		this.populationSize = populationSize;
         population = new Individual[populationSize];
@@ -95,15 +94,15 @@ public class Population
 	}
 
 
-	public Population breed()
+	public Population breed(double crossoverRate, double mutationRate)
 	{
-		Population newPopulation = new Population(populationSize, crossoverRate, mutationRate);
+		Population newPopulation = new Population(populationSize);
 
 		for(int i=0; i<populationSize/2; i++)
 		{
 			Individual parent1 = select();
 			Individual parent2 = select();
-			Individual[] children = Individual.crossover(parent1, parent2, rand);
+			Individual[] children = Individual.crossover(parent1, parent2, rand, crossoverRate);
 
 			if(rand.nextDouble() < mutationRate)
 			{

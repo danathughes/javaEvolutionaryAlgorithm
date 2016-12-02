@@ -13,7 +13,7 @@ public class Individual
 	private byte value = 0;
 
 
-	public static Individual[] crossover(Individual parent1, Individual parent2, Random rand)
+	public static Individual[] crossover(Individual parent1, Individual parent2, Random rand, double crossoverRate)
 	{
 		int crossoverPoint = rand.nextInt(5);
 
