@@ -35,11 +35,12 @@ public class Individual
 	}
 
 
+/*
 	public Individual(byte val)
 	{
 		gene = new Gene(val);
 	}
-
+*/
 
 	public Individual(Gene gene)
 	{
