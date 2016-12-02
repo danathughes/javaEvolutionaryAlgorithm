@@ -10,11 +10,10 @@ import java.util.Random;
 
 public class Selector
 {
-	Random rand;
+	private static Random rand = new Random();
 
-	public Selector(Random rand)
+	public Selector()
 	{
-		this.rand = rand;
 	}
 
 

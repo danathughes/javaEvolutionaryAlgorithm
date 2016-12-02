@@ -7,7 +7,7 @@
 */
 
 
-public class BitStringGene extends Gene
+public class BitStringGene
 {
 	private int stringLength;
 

@@ -10,10 +10,11 @@ import java.util.Random;
 
 public class Population
 {
+	private static Random rand = new Random();
+
 	private int populationSize = 0;
 	private Individual[] population;
 	private Selector selector;
-	Random rand;
 
 	public Population(int populationSize)
 	{
@@ -25,10 +26,7 @@ public class Population
 			population[i] = new Individual();
 		}
 
-		rand = new Random();
-
-		selector = new Selector(rand);
-
+		selector = new Selector();
 	}
 
 
@@ -36,7 +34,7 @@ public class Population
 	{
 		for(Individual individual : population)
 		{
-			individual.initialize(rand);
+			individual.initialize();
 		}
 	}
 
@@ -83,16 +81,10 @@ public class Population
 		{
 			Individual parent1 = selector.select(this);
 			Individual parent2 = selector.select(this);
-			Individual[] children = Individual.crossover(parent1, parent2, rand, crossoverRate);
+			Individual[] children = Individual.crossover(parent1, parent2, crossoverRate);
 
-			if(rand.nextDouble() < mutationRate)
-			{
-				children[0].mutate(rand, mutationRate);
-			}
-			if(rand.nextDouble() < mutationRate)
-			{
-				children[1].mutate(rand, mutationRate);
-			}
+			children[0].mutate(mutationRate);
+			children[1].mutate(mutationRate);
 
 			newPopulation.setIndividual(2*i, children[0]);
 			newPopulation.setIndividual(2*i+1, children[1]);

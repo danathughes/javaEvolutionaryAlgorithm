@@ -10,28 +10,16 @@ import java.util.Random;
 
 public class Individual
 {
-	private byte value = 0;
+	private static Random rand = new Random();
 
+	private Gene value;
 
-	public static Individual[] crossover(Individual parent1, Individual parent2, Random rand, double crossoverRate)
+	public static Individual[] crossover(Individual parent1, Individual parent2, double crossoverRate)
 	{
-		int crossoverPoint = rand.nextInt(5);
+		byte[] genes = Gene.crossover(parent1.getGene(), parent2.getGene(), crossoverRate);
 
-        byte mask = 0;
-
-        byte bit = 1;
-        
-        for(int i=0; i<crossoverPoint; i++)
-        {
-			mask |= bit;
-			bit = (byte) (bit << 1);
-        }
-
-		byte gene1 = (byte) ((parent1.getGene() & mask) + (parent2.getGene() & ~mask));
-		byte gene2 = (byte) ((parent1.getGene() & ~mask) + (parent2.getGene() & mask));
-
-		Individual child1 = new Individual(gene1);
-		Individual child2 = new Individual(gene2);
+		Individual child1 = new Individual(genes[0]);
+		Individual child2 = new Individual(genes[1]);
 
 		Individual[] children = new Individual[2];
 		children[0] = child1;
@@ -43,35 +31,34 @@ public class Individual
 
 	public Individual()
 	{
-		value = 0;
+		value = new Gene((byte) 0);
 	}
 
 
 	public Individual(byte val)
 	{
-		value = val;
+		value = new Gene(val);
 	}
 
 
-	public void initialize(Random rand)
+	public void initialize()
 	{
-		value = (byte) (rand.nextInt() & 31);
+		value.setValue((byte) (rand.nextInt() & 31));
 	}
 
 
 	public byte getGene()
 	{
-		return value;
+		return value.getValue();
 	}
 
 
-	public void mutate(Random rand, double mutationRate)
+	public void mutate(double mutationRate)
 	{
-		int mutationPoint = rand.nextInt(5);
-
-		byte bit = (byte)(1 << mutationPoint);
-
-		value ^= bit;
+		if(rand.nextDouble() < mutationRate)
+		{
+			value.mutate(mutationRate);
+		}
 	}
 
 
