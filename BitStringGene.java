@@ -7,11 +7,11 @@
 */
 
 
-public class BitStringGenotype extends Genotype
+public class BitStringGene extends Gene
 {
 	private int stringLength;
 
-	public BitStringGenotype(int stringLength)
+	public BitStringGene(int stringLength)
 	{
 		this.stringLength = stringLength;
 	}
