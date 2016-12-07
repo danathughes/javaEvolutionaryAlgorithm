@@ -32,12 +32,6 @@ public class Individual extends AbstractIndividual
 	}
 
 
-	public Gene getGene()
-	{
-		return gene;
-	}
-
-
 	public double fitness()
 	{
 		double value=0.0;
