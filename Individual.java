@@ -8,34 +8,19 @@
 
 import java.util.Random;
 
-public class Individual
+public class Individual extends AbstractIndividual
 {
 	private static Random rand = new Random();
 
 	private Gene gene;
 
-	public static Individual[] crossover(Individual parent1, Individual parent2, double crossoverRate)
-	{
-		Gene[] genes = Gene.crossover(parent1.getGene(), parent2.getGene(), crossoverRate);
-
-		Individual child1 = new Individual(genes[0]);
-		Individual child2 = new Individual(genes[1]);
-
-		Individual[] children = new Individual[2];
-		children[0] = child1;
-		children[1] = child2;
-
-		return children;
-	}
-
-
 	public Individual()
 	{
-		gene = new Gene();
+		gene = new BitStringGene(10);
 	}
 
 
-	public Individual(Gene gene)
+	public Individual(BitStringGene gene)
 	{
 		this.gene = gene;
 	}
@@ -55,7 +40,28 @@ public class Individual
 
 	public double fitness()
 	{
-		return (double) gene.getValue();
+		double value=0.0;
+
+		for(int i=0; i<((BitStringGene) gene).getLength(); i++)
+		{
+			value = 2.0*value + ((BitStringGene) gene).getBit(i);
+		}
+		return value;
+	}
+
+
+	public AbstractIndividual[] crossover(AbstractIndividual otherParent, double crossoverRate)
+	{
+		Gene[] genes = this.getGene().crossover(otherParent.getGene(), crossoverRate);
+
+		AbstractIndividual child1 = new Individual((BitStringGene) genes[0]);
+		AbstractIndividual child2 = new Individual((BitStringGene) genes[1]);
+
+		AbstractIndividual[] children = new Individual[2];
+		children[0] = child1;
+		children[1] = child2;
+
+		return children;
 	}
 
 

@@ -57,5 +57,18 @@ public class GeneticAlgorithm
 			ga.step();
 			ga.currentState();
 		}
+
+		BitStringGene bs1 = new BitStringGene(10);
+		BitStringGene bs2 = new BitStringGene(10);
+
+		bs1.randomize();
+		bs2.randomize();
+
+		System.out.println(bs1.toString() + '\t' + bs2.toString());
+
+		BitStringGene[] bs = BitStringGene.crossover(bs1, bs2, 0.5);
+
+		System.out.println(bs[0].toString() + '\t' + bs[1].toString());
+
 	}
 }

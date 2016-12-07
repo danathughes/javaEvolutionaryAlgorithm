@@ -81,13 +81,13 @@ public class Population
 		{
 			Individual parent1 = selector.select(this);
 			Individual parent2 = selector.select(this);
-			Individual[] children = Individual.crossover(parent1, parent2, crossoverRate);
+			AbstractIndividual[] children = parent1.crossover(parent2, crossoverRate);
 
 			children[0].mutate(mutationRate);
 			children[1].mutate(mutationRate);
 
-			newPopulation.setIndividual(2*i, children[0]);
-			newPopulation.setIndividual(2*i+1, children[1]);
+			newPopulation.setIndividual(2*i, (Individual) children[0]);
+			newPopulation.setIndividual(2*i+1, (Individual) children[1]);
 		}
 
 		return newPopulation;
