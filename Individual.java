@@ -8,20 +8,23 @@
 
 import java.util.Random;
 
-public class Individual extends AbstractIndividual
+public class Individual
 {
 	private static Random rand = new Random();
 
 	private Gene gene;
+	private FitnessFunction fitnessFunction;
 
-	public Individual()
+	public Individual(FitnessFunction fitness)
 	{
 		gene = new BitStringGene(10);
+		fitnessFunction = fitness;
 	}
 
 
-	public Individual(BitStringGene gene)
+	public Individual(BitStringGene gene, FitnessFunction fitness)
 	{
+		this(fitness);
 		this.gene = gene;
 	}
 
@@ -31,27 +34,28 @@ public class Individual extends AbstractIndividual
 		gene.randomize();
 	}
 
-
-	public double fitness()
+	
+	public Gene getGene()
 	{
-		double value=0.0;
-
-		for(int i=0; i<((BitStringGene) gene).getLength(); i++)
-		{
-			value = 2.0*value + ((BitStringGene) gene).getBit(i);
-		}
-		return value;
+		return (Gene) gene;
 	}
 
 
-	public AbstractIndividual[] crossover(AbstractIndividual otherParent, double crossoverRate)
+	public double fitness()
+	{
+		return fitnessFunction.fitness(this);
+	}
+
+
+	public Individual[] crossover(Individual otherParent, double crossoverRate)
 	{
 		Gene[] genes = this.getGene().crossover(otherParent.getGene(), crossoverRate);
 
-		AbstractIndividual child1 = new Individual((BitStringGene) genes[0]);
-		AbstractIndividual child2 = new Individual((BitStringGene) genes[1]);
+		Individual child1 = new Individual((BitStringGene) genes[0], fitnessFunction);
+		Individual child2 = new Individual((BitStringGene) genes[1], fitnessFunction);
 
-		AbstractIndividual[] children = new Individual[2];
+		Individual[] children = new Individual[2];
+
 		children[0] = child1;
 		children[1] = child2;
 
@@ -68,8 +72,5 @@ public class Individual extends AbstractIndividual
 	}
 
 
-	public String toString()
-	{
-		return "";
-	}
+
 }

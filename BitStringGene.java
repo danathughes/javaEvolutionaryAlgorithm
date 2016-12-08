@@ -15,31 +15,6 @@ public class BitStringGene extends Gene
 	private int stringLength;
 	private int[] string;
 
-
-	public static BitStringGene[] crossover(BitStringGene parentGene1, BitStringGene parentGene2, double crossoverRate)
-	{
-		BitStringGene[] genes = new BitStringGene[2];
-		genes[0] = new BitStringGene(parentGene1.getLength());
-		genes[1] = new BitStringGene(parentGene2.getLength());
-
-		for(int i=0; i<parentGene1.getLength(); i++)
-		{
-			if(rand.nextDouble() < crossoverRate)
-			{
-				genes[0].setBit(i, parentGene1.getBit(i));
-				genes[1].setBit(i, parentGene2.getBit(i));
-			}
-			else
-			{
-				genes[0].setBit(i, parentGene2.getBit(i));
-				genes[1].setBit(i, parentGene1.getBit(i));
-			}
-		}
-
-		return genes;
-	}
-
-
 	public Gene[] crossover(Gene otherGene, double crossoverRate)
 	{
 		BitStringGene[] genes = new BitStringGene[2];

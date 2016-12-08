@@ -16,14 +16,18 @@ public class Population
 	private Individual[] population;
 	private Selector selector;
 
-	public Population(int populationSize)
+	private FitnessFunction fitnessFunction;
+
+	public Population(int populationSize, FitnessFunction fitness)
 	{
 		this.populationSize = populationSize;
-        population = new Individual[populationSize];
+		fitnessFunction = fitness;
 
+        population = new Individual[populationSize];
+	
 		for(int i=0; i<populationSize; i++)
 		{
-			population[i] = new Individual();
+			population[i] = new Individual(fitness);
 		}
 
 		selector = new Selector();
@@ -75,19 +79,20 @@ public class Population
 
 	public Population breed(double crossoverRate, double mutationRate)
 	{
-		Population newPopulation = new Population(populationSize);
+		Population newPopulation = new Population(populationSize, fitnessFunction);
 
 		for(int i=0; i<populationSize/2; i++)
 		{
 			Individual parent1 = selector.select(this);
 			Individual parent2 = selector.select(this);
-			AbstractIndividual[] children = parent1.crossover(parent2, crossoverRate);
+
+			Individual[] children = parent1.crossover(parent2, crossoverRate);
 
 			children[0].mutate(mutationRate);
 			children[1].mutate(mutationRate);
 
-			newPopulation.setIndividual(2*i, (Individual) children[0]);
-			newPopulation.setIndividual(2*i+1, (Individual) children[1]);
+			newPopulation.setIndividual(2*i, children[0]);
+			newPopulation.setIndividual(2*i+1, children[1]);
 		}
 
 		return newPopulation;

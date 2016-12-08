@@ -19,7 +19,9 @@ public class GeneticAlgorithm
 		this.crossoverRate = crossoverRate;
 		this.mutationRate = mutationRate;
 
-		population = new Population(populationSize);
+		FitnessFunction fitnessFunction = new FitnessFunction();
+
+		population = new Population(populationSize, fitnessFunction);
 		population.initialize();
 	}
 
@@ -66,7 +68,7 @@ public class GeneticAlgorithm
 
 		System.out.println(bs1.toString() + '\t' + bs2.toString());
 
-		BitStringGene[] bs = BitStringGene.crossover(bs1, bs2, 0.5);
+		Gene[] bs = bs1.crossover((Gene) bs2, 0.5);
 
 		System.out.println(bs[0].toString() + '\t' + bs[1].toString());
 
