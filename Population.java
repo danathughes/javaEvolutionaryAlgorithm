@@ -14,23 +14,20 @@ public class Population
 
 	private int populationSize = 0;
 	private Individual[] population;
-	private Selector selector;
 
-	private FitnessFunction fitnessFunction;
+	private IndividualFactory individualFactory;
 
-	public Population(int populationSize, FitnessFunction fitness)
+	public Population(int populationSize, IndividualFactory individualFactory)
 	{
 		this.populationSize = populationSize;
-		fitnessFunction = fitness;
+		this.individualFactory = individualFactory;
 
         population = new Individual[populationSize];
 	
 		for(int i=0; i<populationSize; i++)
 		{
-			population[i] = new Individual(fitness);
+			population[i] = individualFactory.createIndividual();
 		}
-
-		selector = new Selector();
 	}
 
 
@@ -43,19 +40,22 @@ public class Population
 	}
 
 
-	public void printPopulation()
+	public String toString()
 	{
 		double total = 0.0;
 
-		System.out.print("    Genotypes: ");
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("    Genotypes: ");
 		for(Individual individual : population)
-		{ 
-			System.out.print(individual.fitness() + "   ");
+		{
+			builder.append(individual.toString() + "  ");
 			total += individual.fitness();
 		}
-		System.out.println();
 
-		System.out.println("    Average Fitness: " + total/populationSize);
+		builder.append("\n    Average Fitness: " + total/populationSize);
+
+		return builder.toString();
 	}
 
 
@@ -77,9 +77,9 @@ public class Population
 	}
 
 
-	public Population breed(double crossoverRate, double mutationRate)
+	public Population breed(Selector selector, double crossoverRate, double mutationRate)
 	{
-		Population newPopulation = new Population(populationSize, fitnessFunction);
+		Population newPopulation = new Population(populationSize, individualFactory);
 
 		for(int i=0; i<populationSize/2; i++)
 		{

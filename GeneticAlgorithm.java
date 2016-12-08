@@ -11,6 +11,8 @@ public class GeneticAlgorithm
     private int iterationNum = 0;
 
 	private Population population;
+	private IndividualFactory individualFactory;
+	private Selector selector;
 
 	double crossoverRate, mutationRate;
 
@@ -20,57 +22,43 @@ public class GeneticAlgorithm
 		this.mutationRate = mutationRate;
 
 		FitnessFunction fitnessFunction = new FitnessFunction();
+		individualFactory = new IndividualFactory(fitnessFunction);
+		selector = new TournamentSelector(3, 0.6);
 
-		population = new Population(populationSize, fitnessFunction);
+		population = new Population(populationSize, individualFactory);
 		population.initialize();
-	}
-
-
-	public void currentState()
-	{
-        System.out.println("Iteration #" + iterationNum);
-		System.out.println("  Number of individuals: " + population.size());
-
-		population.printPopulation();
 	}
 
 
 	public void step()
 	{
 		iterationNum++;
-		population = population.breed(crossoverRate, mutationRate);
+		population = population.breed(selector, crossoverRate, mutationRate);
 	}
 
 
 	public String toString()
 	{
-		return "";
-	}
+		StringBuilder builder = new StringBuilder();
 
+		builder.append("Iteration #" + iterationNum + "\n");
+		builder.append("  Number of individuals: " + population.size() + "\n");
+
+		builder.append(population.toString());
+
+		return builder.toString();
+	}
 
 	public static void main(String[] args)
 	{
 		System.out.println("Running GeneticAlgorithmDemo");
 		System.out.println("  Creating Genetic Algorithm");
 		GeneticAlgorithm ga = new GeneticAlgorithm(10, 0.25, 0.05);
-		ga.currentState();
+		System.out.println(ga.toString());
 		for(int i=0; i<10; i++)
 		{
 			ga.step();
-			ga.currentState();
+			System.out.println(ga.toString());
 		}
-
-		BitStringGene bs1 = new BitStringGene(10);
-		BitStringGene bs2 = new BitStringGene(10);
-
-		bs1.randomize();
-		bs2.randomize();
-
-		System.out.println(bs1.toString() + '\t' + bs2.toString());
-
-		Gene[] bs = bs1.crossover((Gene) bs2, 0.5);
-
-		System.out.println(bs[0].toString() + '\t' + bs[1].toString());
-
 	}
 }

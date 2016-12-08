@@ -8,23 +8,27 @@
 
 import java.util.Random;
 
-public class Individual
+import java.lang.Comparable;
+
+public class Individual implements Comparable<Individual>
 {
 	private static Random rand = new Random();
 
 	private Gene gene;
 	private FitnessFunction fitnessFunction;
+	private IndividualFactory individualFactory;
 
-	public Individual(FitnessFunction fitness)
+	public Individual(FitnessFunction fitness, IndividualFactory factory)
 	{
 		gene = new BitStringGene(10);
 		fitnessFunction = fitness;
+		individualFactory = factory;
 	}
 
 
-	public Individual(BitStringGene gene, FitnessFunction fitness)
+	public Individual(Gene gene, FitnessFunction fitness, IndividualFactory factory)
 	{
-		this(fitness);
+		this(fitness, factory);
 		this.gene = gene;
 	}
 
@@ -51,8 +55,8 @@ public class Individual
 	{
 		Gene[] genes = this.getGene().crossover(otherParent.getGene(), crossoverRate);
 
-		Individual child1 = new Individual((BitStringGene) genes[0], fitnessFunction);
-		Individual child2 = new Individual((BitStringGene) genes[1], fitnessFunction);
+		Individual child1 = individualFactory.createIndividual(genes[0]);
+		Individual child2 = individualFactory.createIndividual(genes[1]);
 
 		Individual[] children = new Individual[2];
 
@@ -60,6 +64,12 @@ public class Individual
 		children[1] = child2;
 
 		return children;
+	}
+
+	
+	public String toString()
+	{
+		return gene.toString();
 	}
 
 
@@ -72,5 +82,22 @@ public class Individual
 	}
 
 
+	public int compareTo(Individual other)
+	{
+		double myFitness = fitness();
+		double otherFitness = other.fitness();
 
+		int results = 0;
+
+		if (myFitness > otherFitness)
+		{
+			results = 1;
+		}
+		if (otherFitness > myFitness)
+		{
+			results = -1;
+		}
+
+		return results;
+	}
 }

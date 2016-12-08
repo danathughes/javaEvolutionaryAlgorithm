@@ -14,4 +14,6 @@ public abstract class Gene
 
 	public abstract Gene[] crossover(Gene otherGene, double crossoverRate);
 	public abstract void mutate(double mutationRate);
+
+	public abstract String toString();
 }

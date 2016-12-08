@@ -15,31 +15,6 @@ public class BitStringGene extends Gene
 	private int stringLength;
 	private int[] string;
 
-	public Gene[] crossover(Gene otherGene, double crossoverRate)
-	{
-		BitStringGene[] genes = new BitStringGene[2];
-		genes[0] = new BitStringGene(stringLength);
-		genes[1] = new BitStringGene(stringLength);
-
-		BitStringGene other = (BitStringGene) otherGene;
-
-		for(int i=0; i<stringLength; i++)
-		{
-			if(rand.nextDouble() < crossoverRate)
-			{
-				genes[0].setBit(i, this.getBit(i));
-				genes[1].setBit(i, other.getBit(i));
-			}
-			else
-			{
-				genes[0].setBit(i, other.getBit(i));
-				genes[1].setBit(i, this.getBit(i));
-			}
-		}
-
-		return genes;
-	}
-
 
 	public BitStringGene(int stringLength)
 	{
@@ -53,6 +28,48 @@ public class BitStringGene extends Gene
 		for(int i=0; i<stringLength; i++)
 		{
 			string[i] = rand.nextInt(2);
+		}
+	}
+
+
+	public Gene[] crossover(Gene otherGene, double crossoverRate)
+	{
+		BitStringGene genes0 = new BitStringGene(stringLength);
+		BitStringGene genes1 = new BitStringGene(stringLength);
+
+		BitStringGene other = (BitStringGene) otherGene;
+
+		for(int i=0; i<stringLength; i++)
+		{
+			if(rand.nextDouble() < crossoverRate)
+			{
+				genes0.setBit(i, this.getBit(i));
+				genes1.setBit(i, other.getBit(i));
+			}
+			else
+			{
+				genes0.setBit(i, other.getBit(i));
+				genes1.setBit(i, this.getBit(i));
+			}
+		}
+
+		Gene[] genes = new Gene[2];
+
+		genes[0] = (Gene) genes0;
+		genes[1] = (Gene) genes1;
+
+		return genes;
+	}
+
+
+	public void mutate(double mutationRate)
+	{
+		for(int i=0; i<stringLength; i++)
+		{
+			if(rand.nextDouble() < mutationRate)
+			{
+				string[i] = 1 - string[i];
+			}
 		}
 	}
 
@@ -72,18 +89,6 @@ public class BitStringGene extends Gene
 	public int getBit(int idx)
 	{
 		return string[idx];
-	}
-
-
-	public void mutate(double mutationRate)
-	{
-		for(int i=0; i<stringLength; i++)
-		{
-			if(rand.nextDouble() < mutationRate)
-			{
-				string[i] = 1 - string[i];
-			}
-		}
 	}
 
 
