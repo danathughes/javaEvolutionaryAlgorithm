@@ -43,6 +43,7 @@ public class Population
 	public String toString()
 	{
 		double total = 0.0;
+		double best = 0.0;
 
 		StringBuilder builder = new StringBuilder();
 
@@ -51,9 +52,14 @@ public class Population
 		{
 			builder.append(individual.toString() + "  ");
 			total += individual.fitness();
+
+			if(individual.fitness() > best)
+			{
+				best = individual.fitness();
+			}
 		}
 
-		builder.append("\n    Average Fitness: " + total/populationSize);
+		builder.append("\n    Average Fitness: " + total/populationSize + "   Best Fitness: " + best);
 
 		return builder.toString();
 	}

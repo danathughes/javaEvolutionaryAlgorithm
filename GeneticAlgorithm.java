@@ -23,7 +23,8 @@ public class GeneticAlgorithm
 
 		FitnessFunction fitnessFunction = new FitnessFunction();
 		individualFactory = new IndividualFactory(fitnessFunction);
-		selector = new TournamentSelector(3, 0.6);
+		selector = new EliteSelector(new TournamentSelector(3, 0.6), 2);
+//		selector = new TournamentSelector(3, 0.6);
 
 		population = new Population(populationSize, individualFactory);
 		population.initialize();
@@ -53,9 +54,9 @@ public class GeneticAlgorithm
 	{
 		System.out.println("Running GeneticAlgorithmDemo");
 		System.out.println("  Creating Genetic Algorithm");
-		GeneticAlgorithm ga = new GeneticAlgorithm(10, 0.25, 0.05);
+		GeneticAlgorithm ga = new GeneticAlgorithm(10, 0.25, 0.25);
 		System.out.println(ga.toString());
-		for(int i=0; i<10; i++)
+		for(int i=0; i<50; i++)
 		{
 			ga.step();
 			System.out.println(ga.toString());

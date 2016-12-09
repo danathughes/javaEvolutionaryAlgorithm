@@ -17,12 +17,16 @@ public class StochasticUniversalSelector extends Selector
 	private static Random rand = new Random();
 
 	private int currentIndividualNumber = 0;
+	private int numIndividualsSelected;
 	List<Individual> populationList;
 	private double totalFitness = 0.0;
+	private double pointerDistance = 0.0;
+	private double startPoint = 0.0;
 
-	public StochasticUniversalSelector(int populationSize)
+	public StochasticUniversalSelector(int numIndividualsSelected)
 	{
-		populationList = new ArrayList<Individual>(populationSize);
+		this.numIndividualsSelected = numIndividualsSelected;
+		populationList = new ArrayList<Individual>(numIndividualsSelected);
 	}
 
 
@@ -31,18 +35,40 @@ public class StochasticUniversalSelector extends Selector
 		// Need to repopulate the populationList if the individual number is reset to 0
 		if(currentIndividualNumber == 0)
 		{
+			populationList.clear();
+			System.out.print("Rebuilding list...");
 			for(int i=0; i<population.size(); i++)
 			{
-				populationList.clear();
 				populationList.add(population.getIndividual(i));
-				Collections.sort(populationList);
-				Collections.reverse(populationList);
-
 				totalFitness += population.getIndividual(i).fitness();
 			}
+
+			Collections.sort(populationList);
+			Collections.reverse(populationList);
+
+			System.out.println(populationList.size() + " elements, total fitness = " + totalFitness);
+
+			pointerDistance = totalFitness / (numIndividualsSelected + 1);
+			startPoint = pointerDistance * rand.nextDouble();
 		}
 
-		idx = 0;
+		double selectionFitness = startPoint + currentIndividualNumber * pointerDistance;
+
+		int idx = -1;
+
+		do 
+		{
+			idx += 1;
+			selectionFitness -= populationList.get(idx).fitness();
+		}
+		while (selectionFitness >= 0.0);
+			
+		currentIndividualNumber += 1;
+		if(currentIndividualNumber == numIndividualsSelected)
+		{
+			currentIndividualNumber = 0;
+		}
+
 		return populationList.get(idx);
 	}
 
