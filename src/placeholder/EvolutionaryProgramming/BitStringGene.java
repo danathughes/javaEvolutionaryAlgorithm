@@ -6,6 +6,10 @@
 * @since	2016-11-30
 */
 
+package placeholder.EvolutionaryProgramming;
+
+import placeholder.EvolutionaryProgramming.base.Gene;
+
 import java.util.Random;
 
 public class BitStringGene extends Gene

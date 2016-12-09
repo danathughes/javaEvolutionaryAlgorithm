@@ -6,6 +6,11 @@
 * @since	2016-11-30
 */
 
+package placeholder.EvolutionaryProgramming.base;
+
+import placeholder.EvolutionaryProgramming.IndividualFactory;
+import placeholder.EvolutionaryProgramming.BitStringGene;
+
 import java.util.Random;
 
 import java.lang.Comparable;

@@ -6,6 +6,8 @@
 * @since	2016-12-08
 */
 
+package placeholder.EvolutionaryProgramming.base;
+
 import java.util.Random;
 
 public class Fitness implements Comparable<Fitness>

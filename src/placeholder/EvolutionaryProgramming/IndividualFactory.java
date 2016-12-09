@@ -6,6 +6,15 @@
 * @since	2016-12-07
 */
 
+package placeholder.EvolutionaryProgramming;
+
+import placeholder.EvolutionaryProgramming.base.Individual;
+import placeholder.EvolutionaryProgramming.base.Gene;
+import placeholder.EvolutionaryProgramming.base.FitnessFunction;
+
+import placeholder.EvolutionaryProgramming.base.*;
+
+
 import java.util.Random;
 
 public class IndividualFactory

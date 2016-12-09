@@ -6,6 +6,11 @@
 * @since	2016-11-30
 */
 
+package placeholder.EvolutionaryProgramming.base;
+
+import placeholder.EvolutionaryProgramming.selection.Selector;
+import placeholder.EvolutionaryProgramming.IndividualFactory;
+
 import java.util.Random;
 
 public class Population

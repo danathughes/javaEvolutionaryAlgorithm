@@ -6,6 +6,11 @@
 * @since	2016-12-08
 */
 
+package placeholder.EvolutionaryProgramming.selection;
+
+import placeholder.EvolutionaryProgramming.base.Individual;
+import placeholder.EvolutionaryProgramming.base.Population;
+
 import java.util.Random;
 
 import java.util.List;

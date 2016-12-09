@@ -6,6 +6,8 @@
 * @since	2016-11-30
 */
 
+package placeholder.EvolutionaryProgramming.base;
+
 import java.util.Random;
 
 public abstract class Gene

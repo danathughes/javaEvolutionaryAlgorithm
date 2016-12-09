@@ -6,6 +6,16 @@
 * @since	2016-11-30
 */
 
+package placeholder.EvolutionaryProgramming;
+
+import placeholder.EvolutionaryProgramming.selection.Selector;
+import placeholder.EvolutionaryProgramming.selection.EliteSelector;
+import placeholder.EvolutionaryProgramming.selection.TournamentSelector;
+
+import placeholder.EvolutionaryProgramming.base.FitnessFunction;
+import placeholder.EvolutionaryProgramming.base.Individual;
+import placeholder.EvolutionaryProgramming.base.Population;
+
 public class GeneticAlgorithm
 {
     private int iterationNum = 0;
