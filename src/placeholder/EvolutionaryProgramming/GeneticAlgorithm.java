@@ -1,5 +1,7 @@
 /**
-*
+* <h1>GeneticAlgorithm</h1>
+* The GeneticAlgorithm class implements the high-level aspects of the genetic algorithm,
+* allowing selection of the selector, individual and fitness function.
 *
 * @author	Dana Hughes
 * @version	1.0
@@ -18,6 +20,8 @@ import placeholder.EvolutionaryProgramming.base.Population;
 
 public class GeneticAlgorithm
 {
+
+	
     private int iterationNum = 0;
 
 	private Population population;
@@ -41,6 +45,9 @@ public class GeneticAlgorithm
 	}
 
 
+	/**
+	* This method performs a single evolutionary step on the population.
+	*/
 	public void step()
 	{
 		iterationNum++;
@@ -48,6 +55,15 @@ public class GeneticAlgorithm
 	}
 
 
+	/**
+	* This method gemerates a string summarizing the current state of the genetic
+	* algorithm, including the following:
+	* 1.  Iteration number
+	* 2.  Population size
+	* 3.  Summary of the population
+	* 
+	* @return	String	The summary of the current state of the GeneticAlgorithm.
+	*/
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
