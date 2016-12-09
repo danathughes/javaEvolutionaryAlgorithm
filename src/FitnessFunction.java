@@ -3,10 +3,12 @@
 *
 * @author	Dana Hughes
 * @version	1.0
-* @since	2016-11-30
+* @since	2016-12-07
 */
 
 import java.util.Random;
+
+import java.lang.Comparable;
 
 public class FitnessFunction
 {
@@ -15,7 +17,7 @@ public class FitnessFunction
 	}
 
 
-	public double fitness(Individual individual)
+	public Fitness fitness(Individual individual)
 	{
 		double value = 0.0;
 
@@ -26,6 +28,6 @@ public class FitnessFunction
 			value = 2.0*value + gene.getBit(i);
 		}
 
-		return value;		
+		return new Fitness(value);
 	}
 }

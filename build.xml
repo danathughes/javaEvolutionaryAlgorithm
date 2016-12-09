@@ -28,7 +28,7 @@
 
   <target name="build" description="Compile source java files">
     <mkdir dir="${build.dir}" />
-	<javac destdir="${build.dir}" source="1.7" target="1.7">
+	<javac destdir="${build.dir}" source="1.8" target="1.8" includeantruntime="false">
       <src path="${src.dir}" />
     </javac>
   </target>

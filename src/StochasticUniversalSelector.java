@@ -3,7 +3,7 @@
 *
 * @author	Dana Hughes
 * @version	1.0
-* @since	2016-11-30
+* @since	2016-12-07
 */
 
 import java.util.Random;
@@ -40,7 +40,7 @@ public class StochasticUniversalSelector extends Selector
 			for(int i=0; i<population.size(); i++)
 			{
 				populationList.add(population.getIndividual(i));
-				totalFitness += population.getIndividual(i).fitness();
+				totalFitness += population.getIndividual(i).fitness().value();
 			}
 
 			Collections.sort(populationList);
@@ -59,7 +59,7 @@ public class StochasticUniversalSelector extends Selector
 		do 
 		{
 			idx += 1;
-			selectionFitness -= populationList.get(idx).fitness();
+			selectionFitness -= populationList.get(idx).fitness().value();
 		}
 		while (selectionFitness >= 0.0);
 			

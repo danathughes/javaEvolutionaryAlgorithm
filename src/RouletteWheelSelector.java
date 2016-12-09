@@ -3,7 +3,7 @@
 *
 * @author	Dana Hughes
 * @version	1.0
-* @since	2016-11-30
+* @since	2016-12-07
 */
 
 import java.util.Random;
@@ -24,8 +24,8 @@ public class RouletteWheelSelector extends Selector
 
 		for(int i=0; i<population.size(); i++)
 		{
-			probs[i] = (float) population.getIndividual(i).fitness();
-			total += (float) population.getIndividual(i).fitness();
+			probs[i] = (float) population.getIndividual(i).fitness().value();
+			total += (float) population.getIndividual(i).fitness().value();
 		}
 
 		for(int i=0; i<population.size(); i++)

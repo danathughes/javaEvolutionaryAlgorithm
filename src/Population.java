@@ -51,11 +51,11 @@ public class Population
 		for(Individual individual : population)
 		{
 			builder.append(individual.toString() + "  ");
-			total += individual.fitness();
+			total += individual.fitness().value();
 
-			if(individual.fitness() > best)
+			if(individual.fitness().value() > best)
 			{
-				best = individual.fitness();
+				best = individual.fitness().value();
 			}
 		}
 

@@ -45,7 +45,7 @@ public class Individual implements Comparable<Individual>
 	}
 
 
-	public double fitness()
+	public Fitness fitness()
 	{
 		return fitnessFunction.fitness(this);
 	}
@@ -84,20 +84,6 @@ public class Individual implements Comparable<Individual>
 
 	public int compareTo(Individual other)
 	{
-		double myFitness = fitness();
-		double otherFitness = other.fitness();
-
-		int results = 0;
-
-		if (myFitness > otherFitness)
-		{
-			results = 1;
-		}
-		if (otherFitness > myFitness)
-		{
-			results = -1;
-		}
-
-		return results;
+		return this.fitness().compareTo(other.fitness());
 	}
 }
