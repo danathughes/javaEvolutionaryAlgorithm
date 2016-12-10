@@ -11,13 +11,25 @@ package placeholder.EvolutionaryProgramming.examples;
 
 import placeholder.EvolutionaryProgramming.base.GeneticAlgorithm;
 
+import placeholder.EvolutionaryProgramming.base.FitnessFunction;
+
+import placeholder.EvolutionaryProgramming.selection.Selector;
+import placeholder.EvolutionaryProgramming.selection.EliteSelector;
+import placeholder.EvolutionaryProgramming.selection.TournamentSelector;
+
+import placeholder.EvolutionaryProgramming.IndividualFactory;
+
 public class BitStringMaximizer
 {
 	public static void main(String[] args)
 	{
 		System.out.println("Running GeneticAlgorithmDemo");
 		System.out.println("  Creating Genetic Algorithm");
-		GeneticAlgorithm ga = new GeneticAlgorithm(10, 0.25, 0.25);
+
+		IndividualFactory individualFactory = new IndividualFactory(new BitStringMaximizerFitnessFunction());
+		Selector selector = new EliteSelector(new TournamentSelector(3, 0.6), 2);
+
+		GeneticAlgorithm ga = new GeneticAlgorithm(10, 0.25, 0.05, individualFactory, selector);
 		System.out.println(ga.toString());
 		for(int i=0; i<50; i++)
 		{

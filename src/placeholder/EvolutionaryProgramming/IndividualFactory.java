@@ -28,7 +28,7 @@ public class IndividualFactory
 
 	public Individual createIndividual()
 	{
-		Individual individual = new Individual(fitnessFunction, this);
+		Individual individual = new Individual(new BitStringGene(10), fitnessFunction, this);
 		individual.initialize();
 
 		return individual;
@@ -36,7 +36,7 @@ public class IndividualFactory
 
 	public Individual createIndividual(Gene gene)
 	{
-		Individual individual = new Individual((BitStringGene) gene, fitnessFunction, this);
+		Individual individual = new Individual(gene, fitnessFunction, this);
 
 		return individual;
 	}

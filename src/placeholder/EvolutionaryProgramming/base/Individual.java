@@ -23,17 +23,18 @@ public class Individual implements Comparable<Individual>
 	private FitnessFunction fitnessFunction;
 	private IndividualFactory individualFactory;
 
-	public Individual(FitnessFunction fitness, IndividualFactory factory)
-	{
-		gene = new BitStringGene(10);
-		fitnessFunction = fitness;
-		individualFactory = factory;
-	}
+//	public Individual(FitnessFunction fitness, IndividualFactory factory)
+//	{
+//		gene = new BitStringGene(10);
+//		fitnessFunction = fitness;
+//		individualFactory = factory;
+//	}
 
 
 	public Individual(Gene gene, FitnessFunction fitness, IndividualFactory factory)
 	{
-		this(fitness, factory);
+		fitnessFunction = fitness;
+		individualFactory = factory;
 		this.gene = gene;
 	}
 
