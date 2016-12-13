@@ -9,7 +9,6 @@
 package placeholder.EvolutionaryProgramming.base;
 
 import placeholder.EvolutionaryProgramming.selection.Selector;
-import placeholder.EvolutionaryProgramming.IndividualFactory;
 
 import java.util.Random;
 
@@ -20,9 +19,9 @@ public class Population
 	private int populationSize = 0;
 	private Individual[] population;
 
-	private IndividualFactory individualFactory;
+	private AbstractIndividualFactory individualFactory;
 
-	public Population(int populationSize, IndividualFactory individualFactory)
+	public Population(int populationSize, AbstractIndividualFactory individualFactory)
 	{
 		this.populationSize = populationSize;
 		this.individualFactory = individualFactory;

@@ -11,27 +11,23 @@
 package placeholder.EvolutionaryProgramming.base;
 
 import placeholder.EvolutionaryProgramming.selection.Selector;
-import placeholder.EvolutionaryProgramming.selection.EliteSelector;
-import placeholder.EvolutionaryProgramming.selection.TournamentSelector;
 
-import placeholder.EvolutionaryProgramming.base.FitnessFunction;
-import placeholder.EvolutionaryProgramming.base.Individual;
+import placeholder.EvolutionaryProgramming.base.AbstractIndividualFactory;
 import placeholder.EvolutionaryProgramming.base.Population;
 
-import placeholder.EvolutionaryProgramming.IndividualFactory;
 
 public class GeneticAlgorithm
 {
     private int iterationNum = 0;
 
 	private Population population;
-	private IndividualFactory individualFactory;
+	private AbstractIndividualFactory individualFactory;
 	private Selector selector;
 
 	double crossoverRate, mutationRate;
 
 	public GeneticAlgorithm(int populationSize, double crossoverRate, double mutationRate,
-							IndividualFactory individualFactory, Selector selector)
+							AbstractIndividualFactory individualFactory, Selector selector)
 	{
 		this.crossoverRate = crossoverRate;
 		this.mutationRate = mutationRate;

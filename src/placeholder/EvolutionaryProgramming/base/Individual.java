@@ -8,8 +8,8 @@
 
 package placeholder.EvolutionaryProgramming.base;
 
-import placeholder.EvolutionaryProgramming.IndividualFactory;
-import placeholder.EvolutionaryProgramming.BitStringGenotype;
+import placeholder.EvolutionaryProgramming.base.AbstractIndividualFactory;
+import placeholder.EvolutionaryProgramming.genotypes.Genotype;
 
 import java.util.Random;
 
@@ -21,10 +21,10 @@ public class Individual implements Comparable<Individual>
 
 	private Genotype gene;
 	private FitnessFunction fitnessFunction;
-	private IndividualFactory individualFactory;
+	private AbstractIndividualFactory individualFactory;
 
 
-	public Individual(Genotype gene, FitnessFunction fitness, IndividualFactory factory)
+	public Individual(Genotype gene, FitnessFunction fitness, AbstractIndividualFactory factory)
 	{
 		fitnessFunction = fitness;
 		individualFactory = factory;

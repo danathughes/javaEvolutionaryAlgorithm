@@ -6,24 +6,22 @@
 * @since	2016-12-07
 */
 
-package placeholder.EvolutionaryProgramming;
+package placeholder.EvolutionaryProgramming.examples;
 
-import placeholder.EvolutionaryProgramming.base.Individual;
-import placeholder.EvolutionaryProgramming.base.Genotype;
+import placeholder.EvolutionaryProgramming.base.AbstractIndividualFactory;
 import placeholder.EvolutionaryProgramming.base.FitnessFunction;
-
-import placeholder.EvolutionaryProgramming.base.*;
+import placeholder.EvolutionaryProgramming.base.Individual;
+import placeholder.EvolutionaryProgramming.genotypes.BitStringGenotype;
+import placeholder.EvolutionaryProgramming.genotypes.Genotype;
 
 
 import java.util.Random;
 
-public class IndividualFactory
+public class BitStringMaximizerIndividualFactory extends AbstractIndividualFactory
 {
-	private FitnessFunction fitnessFunction;
-
-	public IndividualFactory(FitnessFunction fitnessFunction)
+	public BitStringMaximizerIndividualFactory(FitnessFunction fitnessFunction)
 	{
-		this.fitnessFunction = fitnessFunction;
+		super(fitnessFunction);
 	}
 
 	public Individual createIndividual()

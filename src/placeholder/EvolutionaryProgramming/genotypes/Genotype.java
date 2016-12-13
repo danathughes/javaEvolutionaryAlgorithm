@@ -6,7 +6,7 @@
 * @since	2016-11-30
 */
 
-package placeholder.EvolutionaryProgramming.base;
+package placeholder.EvolutionaryProgramming.genotypes;
 
 import java.util.Random;
 

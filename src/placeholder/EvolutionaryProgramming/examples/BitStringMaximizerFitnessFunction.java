@@ -8,7 +8,7 @@
 
 package placeholder.EvolutionaryProgramming.examples;
 
-import placeholder.EvolutionaryProgramming.BitStringGenotype;
+import placeholder.EvolutionaryProgramming.genotypes.BitStringGenotype;
 import placeholder.EvolutionaryProgramming.base.FitnessFunction;
 import placeholder.EvolutionaryProgramming.base.Fitness;
 import placeholder.EvolutionaryProgramming.base.Individual;
