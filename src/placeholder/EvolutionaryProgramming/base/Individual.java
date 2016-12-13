@@ -9,7 +9,7 @@
 package placeholder.EvolutionaryProgramming.base;
 
 import placeholder.EvolutionaryProgramming.IndividualFactory;
-import placeholder.EvolutionaryProgramming.BitStringGene;
+import placeholder.EvolutionaryProgramming.BitStringGenotype;
 
 import java.util.Random;
 
@@ -19,19 +19,12 @@ public class Individual implements Comparable<Individual>
 {
 	private static Random rand = new Random();
 
-	private Gene gene;
+	private Genotype gene;
 	private FitnessFunction fitnessFunction;
 	private IndividualFactory individualFactory;
 
-//	public Individual(FitnessFunction fitness, IndividualFactory factory)
-//	{
-//		gene = new BitStringGene(10);
-//		fitnessFunction = fitness;
-//		individualFactory = factory;
-//	}
 
-
-	public Individual(Gene gene, FitnessFunction fitness, IndividualFactory factory)
+	public Individual(Genotype gene, FitnessFunction fitness, IndividualFactory factory)
 	{
 		fitnessFunction = fitness;
 		individualFactory = factory;
@@ -45,9 +38,9 @@ public class Individual implements Comparable<Individual>
 	}
 
 	
-	public Gene getGene()
+	public Genotype getGene()
 	{
-		return (Gene) gene;
+		return (Genotype) gene;
 	}
 
 
@@ -59,7 +52,7 @@ public class Individual implements Comparable<Individual>
 
 	public Individual[] crossover(Individual otherParent, double crossoverRate)
 	{
-		Gene[] genes = this.getGene().crossover(otherParent.getGene(), crossoverRate);
+		Genotype[] genes = this.getGene().crossover(otherParent.getGene(), crossoverRate);
 
 		Individual child1 = individualFactory.createIndividual(genes[0]);
 		Individual child2 = individualFactory.createIndividual(genes[1]);

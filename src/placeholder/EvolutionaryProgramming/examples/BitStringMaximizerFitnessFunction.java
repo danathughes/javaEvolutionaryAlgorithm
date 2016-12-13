@@ -8,7 +8,7 @@
 
 package placeholder.EvolutionaryProgramming.examples;
 
-import placeholder.EvolutionaryProgramming.BitStringGene;
+import placeholder.EvolutionaryProgramming.BitStringGenotype;
 import placeholder.EvolutionaryProgramming.base.FitnessFunction;
 import placeholder.EvolutionaryProgramming.base.Fitness;
 import placeholder.EvolutionaryProgramming.base.Individual;
@@ -26,7 +26,7 @@ public class BitStringMaximizerFitnessFunction extends FitnessFunction
 	{
 		double value = 0.0;
 
-		BitStringGene gene = (BitStringGene) individual.getGene();
+		BitStringGenotype gene = (BitStringGenotype) individual.getGene();
 
 		for(int i=0; i<gene.getLength(); i++)
 		{

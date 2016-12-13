@@ -9,7 +9,7 @@
 package placeholder.EvolutionaryProgramming;
 
 import placeholder.EvolutionaryProgramming.base.Individual;
-import placeholder.EvolutionaryProgramming.base.Gene;
+import placeholder.EvolutionaryProgramming.base.Genotype;
 import placeholder.EvolutionaryProgramming.base.FitnessFunction;
 
 import placeholder.EvolutionaryProgramming.base.*;
@@ -28,13 +28,13 @@ public class IndividualFactory
 
 	public Individual createIndividual()
 	{
-		Individual individual = new Individual(new BitStringGene(10), fitnessFunction, this);
+		Individual individual = new Individual(new BitStringGenotype(10), fitnessFunction, this);
 		individual.initialize();
 
 		return individual;
 	}
 
-	public Individual createIndividual(Gene gene)
+	public Individual createIndividual(Genotype gene)
 	{
 		Individual individual = new Individual(gene, fitnessFunction, this);
 
