@@ -50,6 +50,12 @@ public class GeneticAlgorithm
 	}
 
 
+	public Population getPopulation()
+	{
+		return population;
+	}
+
+
 	/**
 	* This method gemerates a string summarizing the current state of the genetic
 	* algorithm, including the following:

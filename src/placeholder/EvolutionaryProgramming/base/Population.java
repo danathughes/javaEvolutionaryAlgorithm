@@ -54,7 +54,7 @@ public class Population
 		builder.append("    Genotypes: ");
 		for(Individual individual : population)
 		{
-			builder.append(individual.toString() + "  ");
+			builder.append(individual.toString() + " - " + (int) individual.fitness().value() + "  ");
 			total += individual.fitness().value();
 
 			if(individual.fitness().value() > best)

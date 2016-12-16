@@ -22,27 +22,75 @@ import placeholder.EvolutionaryProgramming.base.GeneticAlgorithm;
 import placeholder.EvolutionaryProgramming.base.FitnessFunction;
 import placeholder.EvolutionaryProgramming.base.AbstractIndividualFactory;
 
+import placeholder.EvolutionaryProgramming.base.ParetoFitness;
+
+import placeholder.EvolutionaryProgramming.base.Population;
+
 import placeholder.EvolutionaryProgramming.selection.Selector;
 import placeholder.EvolutionaryProgramming.selection.EliteSelector;
-import placeholder.EvolutionaryProgramming.selection.TournamentSelector;
+import placeholder.EvolutionaryProgramming.selection.NichedParetoTournamentSelector;
 
 
 public class BitStringPareto
 {
+	public static void printPopulationCount(Population pop)
+	{
+		System.out.print("Pareto Front - ");
+
+		int[][] counts = new int[13][12];
+
+		int total = 0;
+
+		for(int i=0; i<13; i++)
+		{
+			for(int j=0; j<12; j++)
+			{
+				counts[i][j] = 0;
+			}
+		}
+
+		for(int i=0; i<pop.size(); i++)
+		{
+			double[] fit = ((ParetoFitness) pop.getIndividual(i).fitness()).fitness();
+			counts[(int) fit[0]][(int) fit[1]] += 1;
+			total += 1;
+		}
+
+		System.out.println(total);
+
+		for(int i=0; i<13; i++)
+		{
+			for(int j=0; j<12; j++)
+			{
+				System.out.format("%4d ", counts[i][j]);
+			}
+			System.out.println();
+		}
+
+		System.out.println();
+	}
+
 	public static void main(String[] args)
 	{
 		System.out.println("Running GeneticAlgorithmDemo");
 		System.out.println("  Creating Genetic Algorithm");
 
-		AbstractIndividualFactory individualFactory = new BitStringParetoIndividualFactory(new BitStringMaximizerFitnessFunction());
-		Selector selector = new EliteSelector(new TournamentSelector(3, 0.6), 2);
+		AbstractIndividualFactory individualFactory = new BitStringParetoIndividualFactory(new BitStringParetoFitnessFunction());
+		Selector selector = new NichedParetoTournamentSelector(10, 100, 0.5);
 
-		GeneticAlgorithm ga = new GeneticAlgorithm(10, 0.25, 0.05, individualFactory, selector);
-		System.out.println(ga.toString());
-		for(int i=0; i<50; i++)
+		GeneticAlgorithm ga = new GeneticAlgorithm(100, 0.9, 0.01, individualFactory, selector);
+
+		for(int i=0; i<100; i++)
 		{
 			ga.step();
-			System.out.println(ga.toString());
+
+			if(i%5 == 0)
+			{
+				System.out.println("Step #" + i);
+				printPopulationCount(ga.getPopulation());
+			}
 		}
+
+
 	}
 }

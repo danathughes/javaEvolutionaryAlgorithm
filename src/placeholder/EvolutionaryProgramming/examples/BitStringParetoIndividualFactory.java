@@ -26,7 +26,7 @@ public class BitStringParetoIndividualFactory extends AbstractIndividualFactory
 
 	public Individual createIndividual()
 	{
-		Individual individual = new Individual(new BitStringGenotype(10), fitnessFunction, this);
+		Individual individual = new Individual(new BitStringGenotype(12), fitnessFunction, this);
 		individual.initialize();
 
 		return individual;
