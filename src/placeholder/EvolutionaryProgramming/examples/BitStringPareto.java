@@ -77,14 +77,14 @@ public class BitStringPareto
 		System.out.println("  Creating Genetic Algorithm");
 
 		AbstractIndividualFactory individualFactory = new BitStringParetoIndividualFactory(new BitStringParetoFitnessFunction());
-//		Selector selector = new NichedParetoTournamentSelector(10, 100, 0.5);
-		Selector selector = new NSGA2Selector();
+		Selector selector = new NichedParetoTournamentSelector(2, 20, 2.5);
+//		Selector selector = new NSGA2Selector();
 
 		GeneticAlgorithm ga = new GeneticAlgorithm(100, 0.9, 0.01, individualFactory, selector);
 
-		for(int i=0; i<100; i++)
+		for(int i=0; i<200; i++)
 		{
-			((NSGA2Selector) selector).setup(ga.getPopulation());
+//			((NSGA2Selector) selector).setup(ga.getPopulation());
 			ga.step();
 
 			if(i%5 == 0)
