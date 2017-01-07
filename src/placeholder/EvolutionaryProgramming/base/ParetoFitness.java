@@ -13,6 +13,7 @@ import java.util.Random;
 public class ParetoFitness extends Fitness 
 {
 	private int dimensionality;
+	private int objectiveNumber;
 	protected double[] paretoFitness;
 
 	public ParetoFitness(int dimensionality, double[] values)
@@ -20,6 +21,7 @@ public class ParetoFitness extends Fitness
 		super(0.0);
 
 		this.dimensionality = dimensionality;
+		this.objectiveNumber = -1;
 		paretoFitness = new double[dimensionality];
 
 		for(int i=0; i<dimensionality; i++)
@@ -47,7 +49,15 @@ public class ParetoFitness extends Fitness
 	}
 
 
-	public int compareTo(ParetoFitness other)
+
+	public void sortByObjective(int objectiveNumber)
+	{
+		// use a negative value if sorting by domination
+		this.objectiveNumber = objectiveNumber;
+	}
+
+
+	public int compareDominated(ParetoFitness other)
 	{
 		int results = 0;
 
@@ -61,6 +71,36 @@ public class ParetoFitness extends Fitness
 		}
 
 		return results;
+	}
+
+
+	public int compareObjective(ParetoFitness other)
+	{
+		int results = 0;
+
+		if(this.fitness()[objectiveNumber] < other.fitness()[objectiveNumber])
+		{
+			results = -1;
+		}
+		else if(this.fitness()[objectiveNumber] > other.fitness()[objectiveNumber])
+		{
+			results = 1;
+		}
+
+		return results;
+	}
+
+
+	public int compareTo(ParetoFitness other)
+	{
+		if(objectiveNumber < 0)
+		{
+			return compareDominated(other);
+		}
+		else
+		{
+			return compareObjective(other);
+		}
 	}
 
 

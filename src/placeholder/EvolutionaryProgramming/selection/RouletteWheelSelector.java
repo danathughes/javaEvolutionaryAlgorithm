@@ -21,8 +21,13 @@ public class RouletteWheelSelector extends Selector
 	{
 	}
 
+	public void process(Population population)
+	{
 
-	public Individual select(Population population)
+	}
+
+
+	public Individual select()
 	{
 		double[] probs = new double[population.size()];
 		double total = 0.0;

@@ -34,7 +34,13 @@ public class EliteSelector extends Selector
 	}
 
 
-	public Individual select(Population population)
+	public void process(Population population)
+	{
+
+	}
+
+
+	public Individual select()
 	{
 		if(currentIndividual == 0)
 		{
@@ -59,7 +65,7 @@ public class EliteSelector extends Selector
 		}
 		else
 		{
-			selectedIndividual = baseSelector.select(population);
+			selectedIndividual = baseSelector.select();
 		}
 
 		currentIndividual += 1;

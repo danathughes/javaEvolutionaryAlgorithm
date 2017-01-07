@@ -46,6 +46,7 @@ public class GeneticAlgorithm
 	public void step()
 	{
 		iterationNum++;
+		selector.process(population);
 		population = population.breed(selector, crossoverRate, mutationRate);
 	}
 

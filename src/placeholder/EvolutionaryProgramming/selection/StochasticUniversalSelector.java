@@ -35,7 +35,13 @@ public class StochasticUniversalSelector extends Selector
 	}
 
 
-	public Individual select(Population population)
+	public void process(Population population)
+	{
+
+	}
+
+
+	public Individual select()
 	{
 		// Need to repopulate the populationList if the individual number is reset to 0
 		if(currentIndividualNumber == 0)

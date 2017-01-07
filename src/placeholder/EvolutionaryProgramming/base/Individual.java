@@ -19,9 +19,9 @@ public class Individual implements Comparable<Individual>
 {
 	private static Random rand = new Random();
 
-	private Genotype gene;
-	private FitnessFunction fitnessFunction;
-	private AbstractIndividualFactory individualFactory;
+	protected Genotype gene;
+	protected FitnessFunction fitnessFunction;
+	protected AbstractIndividualFactory individualFactory;
 
 
 	public Individual(Genotype gene, FitnessFunction fitness, AbstractIndividualFactory factory)

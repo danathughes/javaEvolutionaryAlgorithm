@@ -37,7 +37,12 @@ public class NichedParetoTournamentSelector extends Selector
 	}
 
 
-	public Individual select(Population population)
+	public void process(Population population)
+	{
+
+	}
+
+	public Individual select()
 	{
 		Individual[] tournamentPopulation = new Individual[tournamentSize];
 		Individual[] comparisonSet = new Individual[comparisonSetSize];

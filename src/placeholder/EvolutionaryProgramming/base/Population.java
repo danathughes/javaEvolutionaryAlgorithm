@@ -93,8 +93,8 @@ public class Population
 
 		for(int i=0; i<populationSize/2; i++)
 		{
-			Individual parent1 = selector.select(this);
-			Individual parent2 = selector.select(this);
+			Individual parent1 = selector.select();
+			Individual parent2 = selector.select();
 
 			Individual[] children = parent1.crossover(parent2, crossoverRate);
 

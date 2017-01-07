@@ -31,7 +31,13 @@ public class TournamentSelector extends Selector
 	}
 
 
-	public Individual select(Population population)
+	public void process(Population population)
+	{
+
+	}
+
+
+	public Individual select()
 	{
 		// Create a tournament list of individuals from the population
 		List<Individual> selectionList = new ArrayList<Individual>(tournamentSize);

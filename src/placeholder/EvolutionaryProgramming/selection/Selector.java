@@ -15,5 +15,8 @@ import java.util.Random;
 
 public abstract class Selector
 {
-	public abstract Individual select(Population population);
+	protected Population population;
+
+	public abstract void process(Population population);
+	public abstract Individual select();
 }
